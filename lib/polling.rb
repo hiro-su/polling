@@ -12,8 +12,8 @@ module Polling
       arr.each do |time|
         time = Confirm::check_value(time)
         Sleep::exec Target::interval(0, debug) if start
-        Sleep::exec Target::interval(time, debug) unless start
         start = false
+        Sleep::exec Target::interval(time, debug) unless start
         yield
       end
     end

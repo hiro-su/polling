@@ -15,12 +15,12 @@ class PollingTest < Test::Unit::TestCase
     arr.each do |time|
       assert_equal time+1, Polling::Target::interval(time)
     end
-
+    
     Time.stubs(:now).returns(Time.parse "2012/01/01 00:00:00")
     assert_equal 180, Polling::Target::interval(180,true)
     assert_equal 300, Polling::Target::interval(300,true)
     assert_equal 300, Polling::Target::interval(300,true)
     assert_equal 3600, Polling::Target::interval(3600,true)
-
   end
+  
 end

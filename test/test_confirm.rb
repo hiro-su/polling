@@ -13,6 +13,8 @@ class PollingTest < Test::Unit::TestCase
     assert_equal 300, Polling::Confirm::convert("5m")
     assert_equal 18000, Polling::Confirm::convert("5h")
 
+    assert_equal ["0","10","20","30","40","50"], Polling::Confirm::check_arr(["0","10","20","30","40","50"])
+    assert_equal [0,10,20,30,40,50], Polling::Confirm::check_arr([0,10,20,30,40,50])
     assert_equal [0,10,20,30,40,50], Polling::Confirm::check_arr(["10s"])
     assert_equal [0,10,20,30,40,50], Polling::Confirm::check_arr(["10"])
     assert_equal [0,10,20,30,40,50], Polling::Confirm::check_arr([10])
