@@ -13,6 +13,7 @@ module Polling
     loop do 
       arr.each do |time|
         time = Confirm::check_value(time)
+        time = 0 if args[:start] && time >= 60
         Sleep::exec Target::interval(time,args)
         args[:start] = false
         yield

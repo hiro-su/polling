@@ -23,6 +23,9 @@ class PollingTest < Test::Unit::TestCase
     assert_equal 300, Polling::Target::interval(300,debug)
     assert_equal 300, Polling::Target::interval(300,debug)
     assert_equal 3600, Polling::Target::interval(3600,debug)
+    
+    Time.stubs(:now).returns(Time.parse "2012/11/19 10:16:00")
+    assert_equal 300, Polling::Target::interval(300,debug)
   end
   
 end

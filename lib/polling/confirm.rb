@@ -35,9 +35,9 @@ module Polling
 
     def create_arr(time)
       arr = Array.new
-      arr << 0 if time != 0
-      result = time
       if time < 60
+        arr << 0 if time != 0
+        result = time
         while time < 60
           arr << time
           time += result
