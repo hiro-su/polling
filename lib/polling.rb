@@ -1,23 +1,41 @@
-require 'polling/version'
-require 'polling/confirm'
+require 'polling/engine'
 require 'polling/sleep'
-require 'polling/target'
+require 'polling/switch'
+require 'polling/utils'
 
 module Polling
-  module_function
-  def run(arr, debug=false)
-    arr = Confirm::check_arr(arr)
-    args = {:start => false, :debug => debug}
-    Sleep::exec Target::interval(0,args)
-    args[:start] = true
-    loop do 
-      arr.each do |time|
-        time = Confirm::check_value(time)
-        time = 0 if args[:start] && time >= 60
-        Sleep::exec Target::interval(time,args)
-        args[:start] = false
-        yield
+  class << self
+    def setting opts={}
+      set_instance_variables opts
+    end
+
+    def run interval=@interval, debug=false
+      @offset ||= 0
+      @debug ||= debug
+      e = Engine.new
+      e.offset = @offset
+      interval = Switch.switch interval
+
+      #initialize
+      Sleep.exec e.stime(:debug=>@debug)
+
+      loop do
+        yield if block_given?
+        e.target = e.increment! interval
+        Sleep.exec e.stime(:debug=>@debug)
+      end
+    rescue => ex
+      puts ex.message
+    end
+
+    private
+
+    def set_instance_variables variables
+      variables.each do |key,var|
+        instance_variable_set "@#{key}", var
       end
     end
+
+    alias start run
   end
 end
