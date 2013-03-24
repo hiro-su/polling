@@ -14,10 +14,10 @@ Or install it yourself as:
 
 ## Usage
 
-It starts at per minute 0 second. 
+New Interface
 
-    time = [0,10,20,30,40,50]
-    Polling::run(time,debug=true) do
+    require 'polling'
+    Polling.start 10 do
       puts "test"
       sleep 2
     end
@@ -40,6 +40,64 @@ result
     sleep 7.998055934906006seconds (until 2012-11-16 19:49:00 +0900)
     test
     sleep 7.998072147369385seconds (until 2012-11-16 19:49:10 +0900)
+
+set offset
+
+    require 'polling'
+    Polling.setting offset: 30
+    Polling.start 5 do
+      puts "exec sleep 2"
+      sleep 2
+    end
+
+result
+
+    start: 2013-03-24 23:38:25 +0900                                 
+    sleep 4.086651802062988seconds (until 2013-03-24 23:38:30 +0900) 
+    2013-03-24 23:38:30 +0900                                        
+    exec sleep 2                                                     
+    sleep 2.9990789890289307seconds (until 2013-03-24 23:38:35 +0900)
+    2013-03-24 23:38:35 +0900                                        
+    exec sleep 2                                                     
+    sleep 2.9979379177093506seconds (until 2013-03-24 23:38:40 +0900)
+    2013-03-24 23:38:40 +0900                                        
+    exec sleep 2                                                     
+    sleep 2.9986801147460938seconds (until 2013-03-24 23:38:45 +0900)
+    2013-03-24 23:38:45 +0900                                        
+    exec sleep 2                                                     
+    sleep 2.998732089996338seconds (until 2013-03-24 23:38:50 +0900) 
+
+debug
+
+    require 'polling'
+    Polling.setting offset: 5, debug: true
+    Polling.start 5 do
+      puts "test"
+      sleep 2
+    end
+
+or
+
+    require 'polling'
+    Polling.start 5,true do
+      puts "test"
+      sleep 2
+    end
+
+Time which can be set up 
+
+- 1 or other integer
+- "5s" or like string type [s|m|h|d]
+- [0,10,20,30,40,50] array class
+
+Support legacy interface.
+It starts at per minute 0 second. 
+
+    time = [0,10,20,30,40,50]
+    Polling::run(time,debug=true) do
+      puts "test"
+      sleep 2
+    end
     
 The multiple of 60 is set up. 
 
