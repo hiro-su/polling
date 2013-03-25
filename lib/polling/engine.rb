@@ -12,6 +12,11 @@ module Polling
       @target += interval
     end
 
+    def array! interval
+      @init_time = interval if interval > 60
+      @target = interval
+    end
+
     def stime opts={}
       opts = {target: @target, init_time: @init_time}.merge opts
 

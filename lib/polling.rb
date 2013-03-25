@@ -1,6 +1,6 @@
 require 'polling/engine'
 require 'polling/sleep'
-require 'polling/switch'
+require 'polling/validate'
 require 'polling/utils'
 
 module Polling
@@ -14,15 +14,29 @@ module Polling
       @debug ||= debug
       e = Engine.new
       e.offset = @offset
-      interval = Switch.switch interval
 
-      #initialize
-      Sleep.exec e.stime(:debug=>@debug)
-
-      loop do
+      exec = lambda do |time|
         yield if block_given?
-        e.target = e.increment! interval
+        e.target = e.increment! time
         Sleep.exec e.stime(:debug=>@debug)
+      end
+
+      exec_arr = lambda do |time_arr|
+        time_arr.each do |time|
+          e.target = e.array! time
+          Sleep.exec e.stime(:debug=>@debug)
+          yield if block_given?
+        end
+      end
+
+      interval = Validate.value interval
+
+      case interval
+      when Array
+        loop { exec_arr.call interval }
+      else
+        Sleep.exec e.stime(:debug=>@debug)
+        loop { exec.call interval }
       end
     rescue => ex
       puts ex.message
