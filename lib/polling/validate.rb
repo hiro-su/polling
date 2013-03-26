@@ -9,8 +9,10 @@ module Polling
           if value.class == String
             value = Utils.convert value
           end
-        else
-          value = value.map {|i| i.to_f}
+        elsif value.size > 1
+          if value[0].class == String
+            value = value.map {|i| i.to_i}
+          end
         end
       when String
         value = Utils.convert value
