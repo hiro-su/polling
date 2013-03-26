@@ -32,7 +32,9 @@ module Polling
       stime += @offset
       stime -= opts[:init_time] if stime > opts[:init_time]
 
-      raise if stime < 0
+      if stime < 0
+        stime = opts[:init_time] - stime.abs
+      end
 
       debug debug: opts[:debug], stime: stime
       stime

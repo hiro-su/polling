@@ -28,7 +28,7 @@ class Polling::Engine::Test < Test::Unit::TestCase
     Time.stubs(:now).returns(Time.parse "2012/01/01 00:00:00")
     assert_equal 60, @e.stime(target: 0)
 
-    arr = [1,5,10,20,30,40,50,58]
+    arr = [1,5,10,20,30,40,50,58,60,120,300,500]
     arr.each do |time|
       assert_equal time, @e.stime(target: time)
     end
@@ -43,16 +43,20 @@ class Polling::Engine::Test < Test::Unit::TestCase
     assert_equal 70, @e.stime(target: @e.increment!(30))
 
     Time.stubs(:now).returns(Time.parse "2012/12/31 23:50:20")
-    arr = [30,40,50,60,70,80,90]
+    arr = [30,40,50,60,70,80,90,60,120,300,500]
     arr.each do |time|
       assert_equal time - 20, @e.stime(target: time)
     end
 
     Time.stubs(:now).returns(Time.parse "2012/12/31 23:59:50")
+    @e.target = 0
     assert_equal 10, @e.stime(target: 0)
-    assert_equal 60, @e.stime(target: @e.increment!(60))
-    assert_equal 120, @e.stime(target: @e.increment!(120))
-    assert_equal 300, @e.stime(target: @e.increment!(300))
+    @e.target = 60
+    assert_equal 70, @e.stime(target: @e.increment!(60))
+    @e.target = 120
+    assert_equal 130, @e.stime(target: @e.increment!(120))
+    @e.target = 600
+    assert_equal 610, @e.stime(target: @e.increment!(300))
   end
 
   def test_target
