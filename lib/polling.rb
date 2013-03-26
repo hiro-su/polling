@@ -23,7 +23,7 @@ module Polling
 
       exec_arr = lambda do |time_arr|
         time_arr.each do |time|
-          e.target = e.array! time
+          e.target = e.substitution! time
           Sleep.exec e.stime(:debug=>@debug)
           yield if block_given?
         end
@@ -39,7 +39,7 @@ module Polling
         loop { exec.call interval }
       end
     rescue => ex
-      puts ex.message
+      $stderr.puts ex.message
     end
 
     private

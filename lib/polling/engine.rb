@@ -12,7 +12,7 @@ module Polling
       @target += interval
     end
 
-    def array! interval
+    def substitution! interval
       @init_time = interval if interval > 60
       @target = interval
     end
@@ -22,11 +22,11 @@ module Polling
 
       case
       when target(opts[:target]) < opts[:init_time]
-        stime = make_sleep(now_sec_to_f)
+        stime = make_sleep(opts[:target],now_sec_to_f)
         stime += opts[:init_time] if opts[:target].eql? 0
       when target(opts[:target]) >= opts[:init_time]
         decrement!
-        stime = make_sleep(now_sec_to_f) + opts[:init_time]
+        stime = make_sleep(opts[:target],now_sec_to_f) + opts[:init_time]
       end
 
       stime += @offset
@@ -37,8 +37,8 @@ module Polling
       debug debug: opts[:debug], stime: stime
       stime
     rescue => ex
-      puts ex.to_s
-      return @init_time
+      $stderr.puts ex.to_s
+      return opts[:init_time]
     end
 
     private
@@ -62,7 +62,7 @@ module Polling
     def debug opts={}
       if opts[:debug]
         until_time = Time.at(Time.now.to_f + opts[:stime])
-        print "sleep #{opts[:stime]}seconds (until #{until_time})\n"
+        $stdout.print "sleep #{opts[:stime]}seconds (until #{until_time})\n"
       end
     end
   end
