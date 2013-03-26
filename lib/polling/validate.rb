@@ -9,6 +9,8 @@ module Polling
           if value.class == String
             value = Utils.convert value
           end
+        else
+          value = value.map {|i| i.to_f}
         end
       when String
         value = Utils.convert value

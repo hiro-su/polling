@@ -23,6 +23,7 @@ class Polling::Validate::Test < Test::Unit::TestCase
     assert_equal 0, Polling::Validate.value([0])
     assert_equal 60, Polling::Validate.value([60])
     assert_equal [0,10,20,30,40,50], Polling::Validate.value([0,10,20,30,40,50])
+    assert_equal [0,10,20,30,40,50], Polling::Validate.value(["0","10","20","30","40","50"])
 
     assert_equal 0, Polling::Validate.value(["0"])
     assert_equal 60, Polling::Validate.value(["60"])
