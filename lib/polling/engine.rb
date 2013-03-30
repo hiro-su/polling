@@ -43,6 +43,14 @@ module Polling
       return opts[:init_time]
     end
 
+    def stime_async opts={}
+      stime = opts[:interval] - (opts[:after] - opts[:before])
+      debug debug: opts[:debug], stime: stime
+      stime
+    rescue => ex
+      $stderr.puts ex.to_s
+    end
+
     private
 
     def target target=@target, offset=@offset
@@ -59,6 +67,11 @@ module Polling
 
     def decrement! init_time=@init_time
       @target -= init_time
+    end
+
+    def start_print stime
+      until_time = Time.at(Time.now.to_f + stime)
+      $stdout.print "start: #{until_time}\n"
     end
 
     def debug opts={}

@@ -67,6 +67,27 @@ result
     exec sleep 2                                                     
     sleep 2.998732089996338seconds (until 2013-03-24 23:38:50 +0900) 
 
+Async run
+
+    Polling.async_run 5 do
+      puts "exec sleep 2" 
+      sleep 2             
+      puts Time.now       
+    end                   
+
+async run result
+    
+    start: 2013-03-31 07:17:58 +0900                       
+    exec sleep 2                                           
+    2013-03-31 07:18:00 +0900                              
+    sleep 2.998924seconds (until 2013-03-31 07:18:03 +0900)
+    exec sleep 2                                           
+    2013-03-31 07:18:05 +0900                              
+    sleep 2.999263seconds (until 2013-03-31 07:18:08 +0900)
+    exec sleep 2                                           
+    2013-03-31 07:18:10 +0900                              
+    sleep 2.998978seconds (until 2013-03-31 07:18:13 +0900)
+
 debug
 
     require 'polling'
@@ -90,31 +111,14 @@ Time which can be set up
 - "5s" or like string type [s|m|h|d]
 - [0,10,20,30,40,50] array class
 
-Support legacy interface.
 It starts at per minute 0 second. 
 
     time = [0,10,20,30,40,50]
-    Polling::run(time,debug=true) do
+    Polling::run time, debug=true do
       puts "test"
       sleep 2
     end
     
-The multiple of 60 is set up. 
-
-    time = [300]
-    Polling::run(time) do
-      puts "hoge"
-      sleep 2
-    end
-
-Please set a vlue that is divisible by 60.
-
-    time = ["5s"] #or 5. support string is s,m,h,d.
-    Polling::run(time) do
-      puts "test"
-      sleep 2
-    end
-
 ## Copyright
 
 Copyright (c) 2012, hiro-su All rights reserved.

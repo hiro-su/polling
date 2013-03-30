@@ -30,6 +30,9 @@ module Polling
       end
 
       interval = Validate.value interval
+      unless @debug
+        e.__send__(:start_print, e.stime)
+      end
 
       case interval
       when Array
@@ -42,6 +45,23 @@ module Polling
       $stderr.puts ex.message
     end
 
+    def async_run interval=@interval, debug=false
+      e = Engine.new
+      e.__send__(:start_print, 0)
+      loop do
+        before = Time.now
+        yield if block_given?
+        opts = {
+          interval: interval,
+          before: before,
+          after: Time.now,
+          debug: debug
+        }
+        stime = e.stime_async opts
+        Sleep.exec stime
+      end
+    end
+
     private
 
     def set_instance_variables variables
@@ -51,5 +71,6 @@ module Polling
     end
 
     alias start run
+    alias sync_run run
   end
 end

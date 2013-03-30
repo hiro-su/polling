@@ -59,6 +59,12 @@ class Polling::Engine::Test < Test::Unit::TestCase
     assert_equal 610, @e.stime(target: @e.increment!(300))
   end
 
+  def test_stime_async
+    Time.stubs(:now).returns(Time.parse "2012/01/01 00:00:00")
+    assert_equal 3, @e.stime_async(interval: 5, before: Time.now-2, after: Time.now)
+    assert_equal 298, @e.stime_async(interval: 300, before: Time.now-2, after: Time.now)
+  end
+
   def test_target
     assert_equal 0, @e.__send__(:target, 0, 0)
     assert_equal 10, @e.__send__(:target, 10, 0)
@@ -90,6 +96,11 @@ class Polling::Engine::Test < Test::Unit::TestCase
     @e.target = 70
     assert_equal 10, @e.__send__(:decrement!, 60)
     assert_equal -110, @e.__send__(:decrement!, 120)
+  end
+
+  def test_start_print
+    Time.stubs(:now).returns(Time.parse "2012/01/01 00:00:30")
+    assert_nil @e.__send__(:start_print, 5)
   end
 
   def test_debug
