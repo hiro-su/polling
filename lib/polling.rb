@@ -61,8 +61,11 @@ module Polling
       end
 
       interval = Validate.value interval
-      e.__send__(:start_print, 0)
+      if interval.class == Array
+        raise "Can't input Array class : #{interval}"
+      end
 
+      e.__send__(:start_print, 0)
       loop { exec.call interval }
     rescue => ex
       $stderr.puts ex.to_s
