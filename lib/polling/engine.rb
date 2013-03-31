@@ -48,7 +48,7 @@ module Polling
       debug debug: opts[:debug], stime: stime
       stime
     rescue => ex
-      $stderr.puts ex.to_s
+      raise ex
     end
 
     private

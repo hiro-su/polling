@@ -30,9 +30,7 @@ module Polling
       end
 
       interval = Validate.value interval
-      unless @debug
-        e.__send__(:start_print, e.stime)
-      end
+      e.__send__(:start_print, e.stime)
 
       case interval
       when Array
@@ -42,12 +40,12 @@ module Polling
         loop { exec.call interval }
       end
     rescue => ex
-      $stderr.puts ex.message
+      $stderr.puts ex.to_s
     end
 
     def async_run interval=@interval, debug=false
+      @debug ||= debug
       e = Engine.new
-      e.__send__(:start_print, 0)
 
       exec = lambda do |time|
         before = Time.now
@@ -56,14 +54,18 @@ module Polling
           interval: time,
           before: before,
           after: Time.now,
-          debug: debug
+          debug: @debug
         }
         stime = e.stime_async opts
         Sleep.exec stime
       end
 
       interval = Validate.value interval
+      e.__send__(:start_print, 0)
+
       loop { exec.call interval }
+    rescue => ex
+      $stderr.puts ex.to_s
     end
 
     private
