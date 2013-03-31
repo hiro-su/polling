@@ -48,11 +48,12 @@ module Polling
     def async_run interval=@interval, debug=false
       e = Engine.new
       e.__send__(:start_print, 0)
-      loop do
+
+      exec = lambda do |time|
         before = Time.now
         yield if block_given?
         opts = {
-          interval: interval,
+          interval: time,
           before: before,
           after: Time.now,
           debug: debug
@@ -60,6 +61,9 @@ module Polling
         stime = e.stime_async opts
         Sleep.exec stime
       end
+
+      interval = Validate.value interval
+      loop { exec.call interval }
     end
 
     private
