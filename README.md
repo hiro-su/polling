@@ -127,4 +127,4 @@ setting parameters
 
 ## Copyright
 
-Copyright (c) 2012, hiro-su All rights reserved.
+Copyright (c) 2012-2014, hiro-su All rights reserved.
