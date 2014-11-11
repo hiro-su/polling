@@ -24,22 +24,22 @@ New Interface
 
 result
 
-    start: 2012-11-16 19:47:36 +0900
-    sleep 23.980872869491577seconds (until 2012-11-16 19:48:00 +0900)
+    #[debug]=> start: 2012-11-16 19:47:36 +0900
+    #[debug]=> sleep 23.980872869491577seconds (until 2012-11-16 19:48:00 +0900)
     test
-    sleep 7.999034881591797seconds (until 2012-11-16 19:48:10 +0900)
+    #[debug]=> sleep 7.999034881591797seconds (until 2012-11-16 19:48:10 +0900)
     test
-    sleep 7.999000072479248seconds (until 2012-11-16 19:48:20 +0900)
+    #[debug]=> sleep 7.999000072479248seconds (until 2012-11-16 19:48:20 +0900)
     test
-    sleep 7.998318195343018seconds (until 2012-11-16 19:48:30 +0900)
+    #[debug]=> sleep 7.998318195343018seconds (until 2012-11-16 19:48:30 +0900)
     test
-    sleep 7.998938083648682seconds (until 2012-11-16 19:48:40 +0900)
+    #[debug]=> sleep 7.998938083648682seconds (until 2012-11-16 19:48:40 +0900)
     test
-    sleep 7.999677896499634seconds (until 2012-11-16 19:48:50 +0900)
+    #[debug]=> sleep 7.999677896499634seconds (until 2012-11-16 19:48:50 +0900)
     test
-    sleep 7.998055934906006seconds (until 2012-11-16 19:49:00 +0900)
+    #[debug]=> sleep 7.998055934906006seconds (until 2012-11-16 19:49:00 +0900)
     test
-    sleep 7.998072147369385seconds (until 2012-11-16 19:49:10 +0900)
+    #[debug]=> sleep 7.998072147369385seconds (until 2012-11-16 19:49:10 +0900)
 
 set offset
 
@@ -52,20 +52,20 @@ set offset
 
 result
 
-    start: 2013-03-24 23:38:25 +0900                                 
-    sleep 4.086651802062988seconds (until 2013-03-24 23:38:30 +0900) 
+    #[debug]=> start: 2013-03-24 23:38:25 +0900                                 
+    #[debug]=> sleep 4.086651802062988seconds (until 2013-03-24 23:38:30 +0900) 
     2013-03-24 23:38:30 +0900                                        
     exec sleep 2                                                     
-    sleep 2.9990789890289307seconds (until 2013-03-24 23:38:35 +0900)
+    #[debug]=> sleep 2.9990789890289307seconds (until 2013-03-24 23:38:35 +0900)
     2013-03-24 23:38:35 +0900                                        
     exec sleep 2                                                     
-    sleep 2.9979379177093506seconds (until 2013-03-24 23:38:40 +0900)
+    #[debug]=> sleep 2.9979379177093506seconds (until 2013-03-24 23:38:40 +0900)
     2013-03-24 23:38:40 +0900                                        
     exec sleep 2                                                     
-    sleep 2.9986801147460938seconds (until 2013-03-24 23:38:45 +0900)
+    #[debug]=> sleep 2.9986801147460938seconds (until 2013-03-24 23:38:45 +0900)
     2013-03-24 23:38:45 +0900                                        
     exec sleep 2                                                     
-    sleep 2.998732089996338seconds (until 2013-03-24 23:38:50 +0900) 
+    #[debug]=> sleep 2.998732089996338seconds (until 2013-03-24 23:38:50 +0900) 
 
 Async run
 
@@ -77,16 +77,16 @@ Async run
 
 async run result
     
-    start: 2013-03-31 07:17:58 +0900                       
+    #[debug]=> start: 2013-03-31 07:17:58 +0900                       
     exec sleep 2                                           
     2013-03-31 07:18:00 +0900                              
-    sleep 2.998924seconds (until 2013-03-31 07:18:03 +0900)
+    #[debug]=> sleep 2.998924seconds (until 2013-03-31 07:18:03 +0900)
     exec sleep 2                                           
     2013-03-31 07:18:05 +0900                              
-    sleep 2.999263seconds (until 2013-03-31 07:18:08 +0900)
+    #[debug]=> sleep 2.999263seconds (until 2013-03-31 07:18:08 +0900)
     exec sleep 2                                           
     2013-03-31 07:18:10 +0900                              
-    sleep 2.998978seconds (until 2013-03-31 07:18:13 +0900)
+    #[debug]=> sleep 2.998978seconds (until 2013-03-31 07:18:13 +0900)
 
 debug
 
@@ -118,7 +118,13 @@ It starts at per minute 0 second.
       puts "test"
       sleep 2
     end
-    
+
+setting parameters
+
+- offset: Integer
+- debug: Boolean
+- print_start_time: Boolean
+
 ## Copyright
 
 Copyright (c) 2012, hiro-su All rights reserved.
