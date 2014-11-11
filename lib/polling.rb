@@ -30,7 +30,7 @@ module Polling
       end
 
       interval = Validate.value interval
-      e.__send__(:start_print, e.stime)
+      e.__send__(:start_print, e.stime) if @print_start_time || @debug
 
       case interval
       when Array
@@ -65,7 +65,7 @@ module Polling
         raise "Can't input Array class : #{interval}"
       end
 
-      e.__send__(:start_print, 0)
+      e.__send__(:start_print, 0) if @print_start_time || @debug
       loop { exec.call interval }
     rescue => ex
       $stderr.puts ex.to_s
