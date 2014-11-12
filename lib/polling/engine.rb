@@ -38,17 +38,12 @@ module Polling
 
       debug debug: opts[:debug], stime: stime
       stime
-    rescue => ex
-      $stderr.puts ex.to_s
-      return opts[:init_time]
     end
 
     def stime_async opts={}
       stime = opts[:interval] - (opts[:after] - opts[:before])
       debug debug: opts[:debug], stime: stime
       stime
-    rescue => ex
-      raise ex
     end
 
     private

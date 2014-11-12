@@ -39,8 +39,6 @@ module Polling
         Sleep.exec e.stime(:debug=>@debug)
         loop { exec.call interval }
       end
-    rescue => ex
-      $stderr.puts ex.to_s
     end
 
     def async_run interval=@interval, debug=false
@@ -67,8 +65,6 @@ module Polling
 
       e.__send__(:start_print, 0) if @print_start_time || @debug
       loop { exec.call interval }
-    rescue => ex
-      $stderr.puts ex.to_s
     end
 
     private
